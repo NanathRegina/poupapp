@@ -16,6 +16,8 @@ interface ModalProps {
 }
 
 export interface ModalHandle {
+  // deixando exposta a interface ModalHandle para 
+  // poder ser usada em outras classes
   open: () => void;
   close: () => void;
 }
@@ -27,6 +29,11 @@ const Modal = forwardRef<ModalHandle, ModalProps>(({
   aoClicar,
   cliqueForaModal = true
 }, ref) => {
+  // Criação do componente Modal que irá receber ref e as props
+  // o ref do tipo ModalHandle
+  // e será usado pelo chamador para controlar algo no componente(open, close)
+  // as propriedades são do tipo ModalProps
+
   const dialogRef = useRef<HTMLDialogElement>(null); 
   // criando uma referência do Dialog
 

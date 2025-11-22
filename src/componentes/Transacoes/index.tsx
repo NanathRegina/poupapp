@@ -66,6 +66,8 @@ const transacoes = [
 
 const Transacoes = () => {
   const modalRef = useRef<ModalHandle>(null)
+  // criando uma referência do Modal com valor inicialmente null
+  // onde esse Modal só vai ter 2 funcões, open e close 
 
   const [novaTransacao, setNovaTransacao] = useState({
     nome: "",
@@ -96,11 +98,11 @@ const Transacoes = () => {
         </Botao>
         <Modal
         ref = {modalRef}
-      cliqueForaModal
-      titulo="Adicionar transação"
-      icon={<MoneyIcon />}
-      aoClicar={() => alert("modal aberta")}
-    >
+        cliqueForaModal
+        titulo="Adicionar transação"
+        icon={<MoneyIcon />}
+        aoClicar={() => alert("modal aberta")}
+        >
       <Form>
         <Fieldset>
           <Label htmlFor="nomeTransacao">Nome da transação</Label>
