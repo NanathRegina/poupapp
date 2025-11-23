@@ -1,0 +1,20 @@
+{
+  "usuarios": [
+    {
+      "id": "9253",
+      "nome": "Nat",
+      "renda": "8000"
+    },
+    {
+      "id": "84a5",
+      "nome": "Gui",
+      "renda": "3000"
+    },
+    {
+      "id": "48c9",
+      "nome": "Eliane",
+      "renda": "1000"
+    }
+  ],
+  "transacoes": []
+}

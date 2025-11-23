@@ -13,15 +13,44 @@ import Botao from "../../componentes/Botao/index.js";
 import CampoTexto from "../../componentes/CampoTexto/index.js";
 import Fieldset from "../../componentes/Fieldset/index.js";
 import Label from "../../componentes/Label/index.js";
+import { IUsuario } from "../../types/index.js";
+import { criarUsuario } from "../../api/index.js";
 
 const Cadastro = () => {
-  const [nome, setNome] = useState("");
-  const [renda, setRenda] = useState("");
+  // criacao de métrodo chamado Cadastro
+  const [form, setForm] = useState<Omit<IUsuario, "id">>({
+    nome: "",
+    renda: 0,
+  })
+  // criando um estado chamado form cujo o tipo é IUsuario, definindo que não é 
+  // obrigatório o atributo id nesse form
+  // e uma função chamada setForm para alterar as propriedades do form 
+  // form tem as propriedades nome e renda que iniciam com valores padrões
+
+  const aoDigitarNoCampoTexto = (campo: "nome" | "renda", valor: string) =>{
+  // método aoDigitarNoCampoTexto que recebe os parâmetros:
+  // tipo -> que pode ser nome ou renda
+  // valor -> que é do tipo string
+
+    setForm((prev) => ({...prev, [campo]:valor}))
+  // chamado a função setForm para atualizar o estado do form
+  // obtendo o estado anterior do form e atualizando somente o que foi
+  // alterado pelo usuário
+  }
+
 
   const navigate = useNavigate();
 
-  const aoSubmeterFormulario = (evento: React.FormEvent) => {
+  const aoSubmeterFormulario = async (evento: React.FormEvent) => {
     evento.preventDefault();
+    // código que impede que o navegador envie o formulário e
+    // recarregue a página antes de ser executado o trecho de código abaixo
+    try{
+      const novoUsuario = await criarUsuario(form)
+    }catch(error){
+      console.log(error)
+    }
+
     navigate("/home");
   };
 
@@ -41,8 +70,8 @@ const Cadastro = () => {
               <CampoTexto
                 type="text"
                 name="nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+                value={form.nome}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => aoDigitarNoCampoTexto("nome", e.target.value)}
               />
             </Fieldset>
             <Fieldset>
@@ -50,8 +79,8 @@ const Cadastro = () => {
               <CampoTexto
                 type="text"
                 name="renda"
-                value={renda}
-                onChange={(e) => setRenda(e.target.value)}
+                value={form.renda}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => aoDigitarNoCampoTexto("renda", e.target.value)}
               />
             </Fieldset>
           </Form>
